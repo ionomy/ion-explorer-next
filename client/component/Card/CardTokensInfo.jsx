@@ -7,7 +7,7 @@ import React from 'react';
 import Card from './Card';
 import CountUp from '../CountUp';
 
-export default class CardTokenInfo extends Component {
+export default class CardTokensInfo extends Component {
   static defaultProps = {
     avgBlockTime: 90,
     avgMNTime: 24,

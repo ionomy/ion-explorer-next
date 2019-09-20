@@ -16,6 +16,7 @@ import API from './container/API';
 import Block from './container/Block';
 import CoinInfo from './container/CoinInfo';
 import TokenList from './container/TokenList';
+import TokenInfo from './container/TokenInfo';
 import Error404 from './container/Error404';
 import FAQ from './container/FAQ';
 import Masternode from './container/Masternode';
@@ -172,6 +173,7 @@ class App extends Component {
                   <Route exact path="/statistics" component={ Statistics } />
                   <Route exact path="/tx/:hash" component={ TX } />
                   <Route exact path="/tokens" component={ TokenList } />
+                  <Route exact path="/token/:hash" component={ TokenInfo } />
                   <Route component={ Error404 } />
                 </Switch>
               </div>
