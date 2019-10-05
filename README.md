@@ -1,13 +1,13 @@
 ![Bulwark Logo](https://bulwarkcrypto.com/wp-content/uploads/2018/04/blockexplorer.svg)
 
-Bulwark Block Explorer 
+Bulwark Block Explorer
 =====
 [![GitHub license](https://img.shields.io/github/license/bulwark-crypto/bulwark-explorer.svg)](https://github.com/bulwark-crypto/bulwark-explorer/blob/master/LICENSE) [![GitHub issues](https://img.shields.io/github/issues/bulwark-crypto/bulwark-explorer.svg)](https://github.com/bulwark-crypto/bulwark-explorer/issues) [![Discord](https://img.shields.io/discord/374271866308919296.svg)](https://discord.me/bulwarkcrypto) <a href="https://twitter.com/intent/follow?screen_name=bulwarkcoin"> <img src="https://img.shields.io/twitter/follow/bulwarkcoin.svg?style=social&logo=twitter" alt="follow on Twitter"></a>
 
 Simple cryptocurrency block explorer system.
 
 ## Required
-This repo assumes `git`, `mongodb`, `node`, `yarn`, and are installed with configuration done.  Please adjust commands to your local environment. 
+This repo assumes `git`, `mongodb`, `node`, `yarn`, and are installed with configuration done.  Please adjust commands to your local environment.
 
 Download links:
 
@@ -39,9 +39,9 @@ This will install the latest Bulwark wallet and create a rpc username/password b
 #### Database Configuration
 `mongo` - connect using mongo client.
 
-`use blockex` - switch to database.
+`use ionx` - switch to database.
 
-`db.createUser( { user: "blockexuser", pwd: "Explorer!1", roles: [ "readWrite" ] } )` - create a user with the values stored in the `config.js` file from above, meaning they should match.
+`db.createUser( { user: "ion", pwd: "ion", roles: [ "readWrite" ] } )` - create a user with the values stored in the `config.js` file from above, meaning they should match.
 
 `exit` - exit the mongo client.
 
@@ -62,11 +62,12 @@ __Note:__ is is recommended to run all the crons before editing the crontab to h
 
 To setup the crontab please see run `crontab -e` to edit the crontab and paste the following lines (edit with your local information):
 ```
-*/1 * * * * cd /path/to/blockex && ./script/cron_block.sh >> ./tmp/block.log 2>&1
-*/1 * * * * cd /path/to/blockex && /path/to/node ./cron/masternode.js >> ./tmp/masternode.log 2>&1
-*/1 * * * * cd /path/to/blockex && /path/to/node ./cron/peer.js >> ./tmp/peer.log 2>&1
-*/1 * * * * cd /path/to/blockex && /path/to/node ./cron/rich.js >> ./tmp/rich.log 2>&1
-*/5 * * * * cd /path/to/blockex && /path/to/node ./cron/coin.js >> ./tmp/coin.log 2>&1
+*/1 * * * * cd /Volumes/Data/wagerr/ion-explorer && ./script/cron_block.sh >> ./tmp/block.log 2>&1
+*/1 * * * * cd /Volumes/Data/wagerr/ion-explorer && /usr/local/bin/node ./cron/masternode.js >> ./tmp/masternode.log 2>&1
+*/1 * * * * cd /Volumes/Data/wagerr/ion-explorer && /usr/local/bin/node ./cron/peer.js >> ./tmp/peer.log 2>&1
+*/1 * * * * cd /Volumes/Data/wagerr/ion-explorer && /usr/local/bin/node ./cron/rich.js >> ./tmp/rich.log 2>&1
+*/5 * * * * cd /Volumes/Data/wagerr/ion-explorer && /usr/local/bin/node ./cron/coin.js >> ./tmp/coin.log 2>&1
+*/5 * * * * cd /Volumes/Data/wagerr/ion-explorer && /usr/local/bin/node ./cron/token.js >> ./tmp/token.log 2>&1
 ```
 
 ## Build

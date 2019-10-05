@@ -18,7 +18,8 @@ import { PAGINATION_PAGE_SIZE } from '../constants';
 
 class Masternode extends Component {
   static propTypes = {
-    getMNs: PropTypes.func.isRequired
+    getMNs: PropTypes.func.isRequired,
+    setData: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -44,6 +45,7 @@ class Masternode extends Component {
   };
 
   componentDidMount() {
+    this.props.setData({isToken: false});
     this.getMNs();
   };
 
@@ -138,7 +140,12 @@ class Masternode extends Component {
 }
 
 const mapDispatch = dispatch => ({
-  getMNs: query => Actions.getMNs(query)
+  getMNs: query => Actions.getMNs(query),
+  setData: data => Actions.setData(dispatch, data)
+});
+
+const mapState = state => ({
+  data: state.data
 });
 
 export default connect(null, mapDispatch)(Masternode);

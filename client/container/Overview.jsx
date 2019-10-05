@@ -14,7 +14,8 @@ import Table from '../component/Table';
 import CoinSummary from '../container/CoinSummary';
 class Overview extends Component {
   static propTypes = {
-    txs: PropTypes.array.isRequired
+    txs: PropTypes.array.isRequired,
+    setData: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -31,6 +32,10 @@ class Overview extends Component {
       ]
     };
   };
+
+  componentDidMount(){
+      this.props.setData({isToken: false});
+  }
 
   render() {
     // Setup the list of transactions with age since created.
@@ -66,11 +71,12 @@ class Overview extends Component {
 }
 
 const mapDispatch = dispatch => ({
-
+  setData: data => Actions.setData(dispatch, data)
 });
 
 const mapState = state => ({
-  txs: state.txs
+  txs: state.txs,
+  data: state.data
 });
 
 export default connect(mapState, mapDispatch)(Overview);

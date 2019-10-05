@@ -197,6 +197,31 @@ const getBlock = async (req, res) => {
 };
 
 /**
+ * Get token by groupid.
+ * @param {Object} req The request object.
+ * @param {Object} res The response object.
+ */
+const getToken = async (req, res) => {
+  try {
+    const query = { groupIdentifier: req.params.hash }
+    const token = await Token.findOne(query);
+    if (!token) {
+      res.status(404).send('Unable to find the token!');
+      return;
+    }
+
+    res.json(token);
+  } catch(err) {
+    console.log(err);
+    res.status(500).send(err.message || err);
+  }
+};
+
+const verifyTokenOwner = async (req, res) => {
+  const result = await rpc.call('verifymessage', [req.query.address, req.query.signature, req.query.message]);
+  res.json({status: result});
+};
+/**
  * Return the coin information.
  * @param {Object} req The request object.
  * @param {Object} res The response object.
@@ -640,6 +665,7 @@ module.exports =  {
   getIsBlock,
   getMasternodes,
   getTokens,
+  getToken,
   getMasternodeByAddress,
   getMasternodeCount,
   getPeer,
@@ -650,5 +676,6 @@ module.exports =  {
   getTXLatest,
   getTX,
   getTXs,
-  getTXsWeek
+  getTXsWeek,
+  verifyTokenOwner
 };

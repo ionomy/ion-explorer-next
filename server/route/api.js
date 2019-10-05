@@ -25,7 +25,8 @@ router.get('/tx/latest', blockex.getTXLatest);
 router.get('/tx/week', blockex.getTXsWeek());
 router.get('/tx/:hash', blockex.getTX);
 router.get('/tokens', blockex.getTokens);
-
+router.get('/token/:hash', blockex.getToken);
+router.get('/verifyTokenOwner', blockex.verifyTokenOwner);
 // Iquidus Explorer routes.
 router.get('/getdifficulty', iquidus.getdifficulty);
 router.get('/getconnectioncount', iquidus.getconnectioncount);

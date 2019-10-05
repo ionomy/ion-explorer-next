@@ -17,7 +17,8 @@ class Statistics extends Component {
     coin: PropTypes.object.isRequired,
     // Dispatch
     getCoins: PropTypes.func.isRequired,
-    getTXs: PropTypes.func.isRequired
+    getTXs: PropTypes.func.isRequired,
+    setData: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -32,6 +33,7 @@ class Statistics extends Component {
   };
 
   componentDidMount() {
+    this.props.setData({isToken: false});
     Promise.all([
         this.props.getCoins(),
         this.props.getTXs()
@@ -183,11 +185,13 @@ class Statistics extends Component {
 
 const mapDispatch = dispatch => ({
   getCoins: () => Actions.getCoinsWeek(dispatch),
-  getTXs: () => Actions.getTXsWeek(dispatch)
+  getTXs: () => Actions.getTXsWeek(dispatch),
+  setData: data => Actions.setData(dispatch, data)
 });
 
 const mapState = state => ({
-  coin: state.coin
+  coin: state.coin,
+  data: state.data
 });
 
 export default connect(mapState, mapDispatch)(Statistics);

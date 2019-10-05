@@ -41,6 +41,18 @@ const getFromWorker = (type, resolve, reject, query = null) => {
   return true;
 };
 
+export const verifyTokenOwner = (query) => {
+  return new promise((resolve, reject) => {
+    return getFromWorker('verifyTokenOwner', resolve, reject, query);
+  });
+};
+
+export const getToken = (query) => {
+  return new promise((resolve, reject) => {
+    return getFromWorker('token', resolve, reject, query);
+  });
+};
+
 export const getTokens = (dispatch, query) => {
   return new promise((resolve, reject) => {
     return getFromWorker(
@@ -210,6 +222,7 @@ export default {
   getIsBlock,
   getMNs,
   getTokens,
+  getToken,
   getPeers,
   getTX,
   getTXLatest,
@@ -217,5 +230,6 @@ export default {
   getTXsWeek,
   setTXs,
   setWatch,
-  removeWatch
+  removeWatch,
+  verifyTokenOwner
 };

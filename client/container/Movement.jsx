@@ -16,7 +16,8 @@ class Movement extends Component {
   static propTypes = {
     getTXs: PropTypes.func.isRequired,
     setTXs: PropTypes.func.isRequired,
-    tx: PropTypes.object.isRequired
+    tx: PropTypes.object.isRequired,
+    setData: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -33,6 +34,7 @@ class Movement extends Component {
   };
 
   componentDidMount() {
+    this.props.setData({isToken: false});
     this.getTXs();
   };
 
@@ -108,11 +110,13 @@ class Movement extends Component {
 
 const mapDispatch = dispatch => ({
   getTXs: query => Actions.getTXs(null, query),
-  setTXs: txs => Actions.setTXs(dispatch, txs)
+  setTXs: txs => Actions.setTXs(dispatch, txs),
+  setData: data => Actions.setData(dispatch, data)
 });
 
 const mapState = state => ({
-  tx: state.txs.length ? state.txs[0] : {}
+  tx: state.txs.length ? state.txs[0] : {},
+  data: state.data
 });
 
 export default connect(mapState, mapDispatch)(Movement);

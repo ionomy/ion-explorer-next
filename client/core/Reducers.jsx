@@ -12,7 +12,7 @@ import {
 
 const dataInit = {
   isToken: false,
-  tokens: []
+  tokens: [],
 }
 
 const data = (state = dataInit, action) => {

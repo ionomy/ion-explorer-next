@@ -10,7 +10,8 @@ import Table from '../component/Table';
 
 class Peer extends Component {
   static propTypes = {
-    getPeers: PropTypes.func.isRequired
+    getPeers: PropTypes.func.isRequired,
+    setData: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -28,6 +29,7 @@ class Peer extends Component {
   };
 
   componentDidMount() {
+    this.props.setData({isToken: false});
     this.props
       .getPeers()
       .then(peers => this.setState({ peers, loading: false }))
@@ -63,7 +65,12 @@ class Peer extends Component {
 }
 
 const mapDispatch = dispatch => ({
-  getPeers: () => Actions.getPeers()
+  getPeers: () => Actions.getPeers(),
+  setData: data => Actions.setData(dispatch, data)
+});
+
+const mapState = state => ({
+  data: state.data
 });
 
 export default connect(null, mapDispatch)(Peer);

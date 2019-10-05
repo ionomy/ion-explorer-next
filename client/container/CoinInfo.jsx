@@ -3,7 +3,7 @@ import Component from '../core/Component';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import React from 'react';
-
+import Actions from '../core/Actions';
 import CardEarnings from '../component/Card/CardEarnings';
 import CardExchanges from '../component/Card/CardExchanges';
 import CardLinks from '../component/Card/CardLinks';
@@ -12,8 +12,13 @@ import HorizontalRule from '../component/HorizontalRule';
 
 class CoinInfo extends Component {
   static propTypes = {
-    coin: PropTypes.object.isRequired
+    coin: PropTypes.object.isRequired,
+    setData: PropTypes.func.isRequired,
   };
+
+  componentDidMount(){
+    this.props.setData({isToken: false});
+  }
 
   render() {
     return (
@@ -44,12 +49,13 @@ class CoinInfo extends Component {
 }
 
 const mapDispatch = dispatch => ({
-
+  setData: data => Actions.setData(dispatch, data)
 });
 
 const mapState = state => ({
   coin: state.coins.length ? state.coins[0] : {},
-  txs: state.txs
+  txs: state.txs,
+  data: state.data
 });
 
 export default connect(mapState, mapDispatch)(CoinInfo);

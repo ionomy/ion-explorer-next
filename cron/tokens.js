@@ -22,20 +22,49 @@ async function syncTokens() {
   // Increase the timeout for masternode.
   rpc.timeout(10000); // 10 secs
 
-  const tokens = await rpc.call('tokeninfo', ["all"]);
+  const tokens = await rpc.call('tokeninfo', ["all", "true"]);
   const inserts = [];
-  await forEach(tokens, async (tk) => {
+  for (let i=0; i<tokens.length; i++){
+    let tk = tokens[i];
+    console.log('tk.groupIdentifier', tk.groupIdentifier);
+    const scaninfo = await rpc.callForToken('scantokens', ["start", tk.groupIdentifier]);
+    let total_amount = "";
+    let token_authorities = "";
+    if (!scaninfo.hasOwnProperty('error')){
+      total_amount = scaninfo.total_amount;
+      token_authorities = scaninfo.token_authorities;
+    }
+    console.log('total_amount', total_amount);
+    console.log('token_authorities', token_authorities);
     const token = new Token({
-      txid: tk.txid,
+      txid: tk.creation.txid,
+      creator: tk.creation.address,
       groupIdentifier: tk.groupIdentifier,
       decimalPos: tk.decimalPos,
       name: tk.name,
       ticker: tk.ticker,
       URL: tk.URL,
+      total_amount: total_amount,
+      token_authorities: token_authorities
     });
-
     inserts.push(token);
-  });
+  }
+  console.log(inserts);
+  // await forEach(tokens, async (tk) => {
+  //   const scaninfo = await rpc.call('scantokens', ["start", tk.groupIdentifier]);
+  //   const token = new Token({
+  //     txid: tk.creation.txid,
+  //     creator: tk.creation.address,
+  //     groupIdentifier: tk.groupIdentifier,
+  //     decimalPos: tk.decimalPos,
+  //     name: tk.name,
+  //     ticker: tk.ticker,
+  //     URL: tk.URL,
+  //     total_amount: scaninfo.total_amount,
+  //     token_authorities: scaninfo.token_authorities
+  //   });
+  //   inserts.push(token);
+  // });
 
   if (inserts.length) {
     await Token.insertMany(inserts);
