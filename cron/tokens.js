@@ -116,7 +116,7 @@ async function syncTokens() {
   const inserts = [];
   for (let i=0; i<tokens.length; i++){
     let tk = tokens[i];
-    const scaninfo = await rpc.callForToken('scantokens', ["start", tk.groupIdentifier]);
+    const scaninfo = await rpc.callForToken('scantokens', ["start", tk.groupID]);
     let total_amount = "";
     let token_authorities = "";
     if (!scaninfo.hasOwnProperty('error')){
@@ -128,7 +128,7 @@ async function syncTokens() {
     const token = new Token({
       txid: tk.creation.txid,
       creator: tk.creation.address,
-      groupIdentifier: tk.groupIdentifier,
+      groupIdentifier: tk.groupID,
       decimalPos: tk.decimalPos,
       name: tk.name,
       ticker: tk.ticker,
