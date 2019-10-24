@@ -70,9 +70,12 @@ class TokenInfo extends Component {
         <div style={{padding:'15px'}}>Token Summary: {this.state.token.docSummary}</div>
         <div style={{padding:'15px'}}>Token Description: {this.state.token.docDescription}</div>
         <div style={{padding:'15px'}}>Token Creator: {this.state.token.docCreator} ({this.state.token.creator})</div>
-        <div style={{padding:'15px'}}>Token Creator Verified: {this.state.token.verifyOwner? "Verified": "Not Verified"}</div>
+        <div style={{padding:'15px'}}>Token Creator Verified: 
+	    {this.state.token.verifiedOwner && <div style={{display:'inline', padding:'10px', fontWeight:'bold'}}><img src="/img/ticker-verified.png"/> Verified</div>}
+	    {!this.state.token.verifiedOwner && <div style={{display:'inline', padding:'10px', fontWeight:'bold'}}><img src="/img/ticker-not-verfied.png"/> Not Verified</div>}
+	</div>
         <div style={{padding:'15px'}}>Token Signature: {this.state.token.docSignature}</div>
-        <div style={{padding:'15px'}}>Document Hash: {this.state.token.docSignature}</div>
+        <div style={{padding:'15px'}}>Document Hash: {this.state.token.docHash}</div>
         <div style={{padding:'15px'}}>Token Total Amount: {this.state.token.total_amount}</div>
         <div style={{padding:'15px'}}>Token Authorities: {this.state.token.token_authorities}</div>
         <div className="clearfix" />

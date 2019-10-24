@@ -103,12 +103,8 @@ function getDocumentHash(text){
     return null;
   }
 }
-
 async function syncTokens() {
   const date = moment().utc().startOf('minute').toDate();
-
-  await Token.remove({});
-
   // Increase the timeout for masternode.
   rpc.timeout(10000); // 10 secs
 
@@ -120,11 +116,9 @@ async function syncTokens() {
     let total_amount = "";
     let token_authorities = "";
     if (!scaninfo.hasOwnProperty('error')){
-      total_amount = scaninfo.total_amount;
-      token_authorities = scaninfo.token_authorities;
+      total_amount = scaninfo.total_tokenAmount;
+      token_authorities = scaninfo.total_groupAuthorities;
     }
-    console.log('------------------------');
-
     const token = new Token({
       txid: tk.creation.txid,
       creator: tk.creation.address,
@@ -143,14 +137,13 @@ async function syncTokens() {
       docDescription: "",
       docTicker: "",
       docSignature: "",
-      docHash: "",
+      docHash: tk.documentHash,
       verifiedOwner: false
     });
 
     try {
       let response = await fetch(token.URL);
       let res = await response.json();
-      console.log('res', res);
       const docData = ValidateDocument(res);
       if (docData){
         token.docChain = docData[0].chain;
@@ -164,16 +157,17 @@ async function syncTokens() {
 
         let responsefortext = await fetch(token.URL);
         let textData = await responsefortext.text();
-        const docHash = getDocumentHash(textData);
-        console.log('docHash', docHash);
-        if (docHash){
-          token.docHash = docHash;
-        }
+        //const docHash = getDocumentHash(textData);
+        //console.log('docHash', docHash);
+        //if (docHash){
+         // token.docHash = docHash;
+        //}
         if (token.docCreator != "" && token.docSignature != ""){
-          const result = await rpc.call('verifymessage', [token.creator, token.docSignature, extractMainPartFromDoc(textData)]);
-          console.log('result', result);
-          if (result){
-            token.verifyOwner = result.status;
+	  console.log(token.docName, token.creator, token.docSignature, extractMainPartFromDoc(textData));
+          const res = await rpc.call('verifymessage', [token.creator, token.docSignature, extractMainPartFromDoc(textData)]);
+          if (res){
+	    console.log('verifyOwner', res);
+            token.verifiedOwner = res;
           }
         }
       }
@@ -182,6 +176,7 @@ async function syncTokens() {
     }
     inserts.push(token);
   }
+  console.log('---------------------------------------------------');
   console.log(inserts);
   // await forEach(tokens, async (tk) => {
   //   const scaninfo = await rpc.call('scantokens', ["start", tk.groupIdentifier]);
@@ -200,6 +195,7 @@ async function syncTokens() {
   // });
 
   if (inserts.length) {
+    await Token.remove({});
     await Token.insertMany(inserts);
   }
 }
