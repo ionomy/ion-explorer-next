@@ -4,7 +4,7 @@
  */
  const config = {
    'api': {
-     'host': 'http://localhost',
+     'host': 'http://178.63.71.35',
      'port': '8087',
      'prefix': '/api',
      'timeout': '90s'
@@ -33,4 +33,3 @@
  };
 
 module.exports = config;
-//-rpcconnect=127.0.0.1 -rpcuser=ion -rpcpassword=this -rpcport=12705 listtransactions
