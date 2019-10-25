@@ -139,19 +139,24 @@ async function addPoS(block, rpctx) {
   if (rpctx.vin[0].coinbase && rpctx.vout[0].value === 0)
     return;
 
-  const txin = await vin(rpctx, block.height);
-  const txout = await vout(rpctx, block.height);
+  const query = {_id: rpctx.txid};
+  const tx = await TX.findOne(query);
+  if (!tx) {
+    const txin = await vin(rpctx, block.height);
+    const txout = await vout(rpctx, block.height);
 
-  await TX.create({
-    _id: rpctx.txid,
-    blockHash: block.hash,
-    blockHeight: block.height,
-    createdAt: block.createdAt,
-    txId: rpctx.txid,
-    version: rpctx.version,
-    vin: txin,
-    vout: txout
-  });
+
+    await TX.create({
+      _id: rpctx.txid,
+      blockHash: block.hash,
+      blockHeight: block.height,
+      createdAt: block.createdAt,
+      txId: rpctx.txid,
+      version: rpctx.version,
+      vin: txin,
+      vout: txout
+    });
+  }
 }
 
 /**
@@ -160,19 +165,23 @@ async function addPoS(block, rpctx) {
  * @param {Object} rpctx The rpc object from the node.
  */
 async function addPoW(block, rpctx) {
-  const txin = await vin(rpctx, block.height);
-  const txout = await vout(rpctx, block.height);
+  const query = {_id: rpctx.txid};
+  const tx = await TX.findOne(query);
+  if (!tx){
+    const txin = await vin(rpctx, block.height);
+    const txout = await vout(rpctx, block.height);
 
-  await TX.create({
-    _id: rpctx.txid,
-    blockHash: block.hash,
-    blockHeight: block.height,
-    createdAt: block.createdAt,
-    txId: rpctx.txid,
-    version: rpctx.version,
-    vin: txin,
-    vout: txout
-  });
+    await TX.create({
+      _id: rpctx.txid,
+      blockHash: block.hash,
+      blockHeight: block.height,
+      createdAt: block.createdAt,
+      txId: rpctx.txid,
+      version: rpctx.version,
+      vin: txin,
+      vout: txout
+    });
+  }
 }
 
 /**
