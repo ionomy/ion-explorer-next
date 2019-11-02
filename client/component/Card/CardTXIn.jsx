@@ -31,19 +31,37 @@ export default class CardTXIn extends Component {
     return (
       <Table
         cols={ this.state.cols }
-        data={ this.props.txs.map(tx => ({
-          ...tx,
-          address: tx.address
-            ? (<Link to={ `/address/${ tx.address }` }>{ tx.address }</Link>)
-            : tx.coinbase ? 'COINBASE' : tx.coinstake?'POS': tx.isZcSpend?"ZEROCOIN_SPEND":'Unknown',
-          value: tx.value
-            ? (
-                <span className="badge badge-danger">
-                  -{ numeral(tx.value).format('0,0.0000') } ION
-                </span>
-              )
-            : ''
-        })) } />
+        data={ this.props.txs.map(tx => {
+          if (typeof tx.tokenTicker != "undefined" && tx.tokenTicker != ""){
+            return ({
+              ...tx,
+              address: tx.address
+                ? (<Link to={ `/address/${ tx.address }` }>{ tx.address }</Link>)
+                : tx.coinbase ? 'COINBASE' : tx.coinstake?'POS': tx.isZcSpend?"ZEROCOIN_SPEND":'Unknown',
+              value: tx.value
+                ? (
+                    <span className="badge badge-danger">
+                      -{ numeral(tx.tokenValue).format('0,0.0000') } {tx.tokenTicker}
+                    </span>
+                  )
+                : ''
+            })
+          } else {
+              return ({
+                ...tx,
+                address: tx.address
+                  ? (<Link to={ `/address/${ tx.address }` }>{ tx.address }</Link>)
+                  : tx.coinbase ? 'COINBASE' : tx.coinstake?'POS': tx.isZcSpend?"ZEROCOIN_SPEND":'Unknown',
+                value: tx.value
+                  ? (
+                      <span className="badge badge-danger">
+                        -{ numeral(tx.value).format('0,0.0000') } ION
+                      </span>
+                    )
+                  : ''
+              })
+          }
+        }) } />
     );
   };
 }

@@ -28,7 +28,10 @@ export default class CardTXOut extends Component {
   };
 
   render () {
-    let isCoinStake = this.props.tx.vin[0].coinstake
+    let isCoinStake = false;
+    console.log('tx', this.props.tx);
+    if (this.props.tx.vin.length > 0 && typeof this.props.tx.vin[0].coinstake != "undefined")
+      isCoinStake = this.props.tx.vin[0].coinstake;
     return (
       <Table
         cols={this.state.cols}
@@ -57,6 +60,20 @@ export default class CardTXOut extends Component {
                   <Link to={`/address/${ vout.address }`}>{vout.address}</Link>
                 ),
                 value: voutValue
+              })
+          } else if (typeof vout.tokenTicker != "undefined" && vout.tokenTicker != ""){
+            return (
+              {
+                ...vout,
+                address: (
+                  <Link to={`/address/${ vout.address }`}>{vout.address}</Link>
+                ),
+                value: (
+
+                  <span className="badge badge-success">
+              {numeral(vout.tokenValue).format('0,0.0000')} {vout.tokenTicker}
+            </span>
+                )
               })
           } else {
             return (

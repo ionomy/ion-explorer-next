@@ -13,7 +13,10 @@ const STXO = mongoose.model('STXO', new mongoose.Schema({
   blockHeight: { index: true, required: true, type: Number },
   n: { required: true, type: Number },
   txId: { required: true, type: String },
-  value: { required: true, type: Number }
+  value: { required: true, type: Number },
+  tokenTicker: {type:String},
+  tokenValue: {type:Number},
+  tokenId: {type:String},
 }, { versionKey: false }), 'stxo');
 
 module.exports =  STXO;

@@ -46,7 +46,10 @@ async function syncBlocks(start, stop, clean = false) {
     await block.save();
 
     await forEachSeries(block.txs, async (txhash) => {
-      const rpctx = await util.getTX(txhash);
+      var rpctx = await util.getTX(txhash);
+      if (blockchain.isTokenTransaction(rpctx)){
+        rpctx = await util.getTokenTx(txhash);
+      }
 
       if (blockchain.isPoS(block)) {
         await util.addPoS(block, rpctx);

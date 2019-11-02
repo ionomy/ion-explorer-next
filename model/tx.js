@@ -14,7 +14,10 @@ const TXIn = new mongoose.Schema({
   address: { type: String },
   value: { type: Number },
   isZcSpend:{ type: Boolean },
-  vout: { type: Number }
+  vout: { type: Number },
+  tokenTicker: {type:String},
+  tokenValue: {type:Number},
+  tokenId: {type:String},
 });
 
 /**
@@ -26,7 +29,10 @@ const TXOut = new mongoose.Schema({
   __v: { select: false, type: Number },
   address: { required: true, type: String },
   n: { required: true, type: Number },
-  value: { required: true, type: Number }
+  value: { required: true, type: Number },
+  tokenTicker: {type:String},
+  tokenValue: {type:Number},
+  tokenId: {type:String},
 });
 
 /**
@@ -41,7 +47,7 @@ const txSchema = new mongoose.Schema({
   txId: { index: true, required: true, type: String },
   version: { required: true, type: Number },
   vin: { required: true, type: [TXIn] },
-  vout: { required: true, type: [TXOut] }
+  vout: { required: true, type: [TXOut] },
 }, { versionKey: false });
 
 /**

@@ -30,13 +30,15 @@ async function vin(rpctx, blockHeight) {
       }
       let connectedTx = await TX.findOne({txId: vin.txid})
       if (connectedTx) {
-        const from = {
+        var from = {
           blockHeight,
           address: connectedTx.vout[vin.vout].address,
           n: vin.vout,
-          value: connectedTx.vout[vin.vout].value
+          value: connectedTx.vout[vin.vout].value,
+          tokenTicker: connectedTx.vout[vin.vout].tokenTicker,
+          tokenValue: connectedTx.vout[vin.vout].tokenValue,
+          tokenId: connectedTx.vout[vin.vout].tokenId,
         }
-
         stxo.push({
           ...from,
           _id: `${ connectedTx.txId }:${ vin.vout }`,
@@ -50,7 +52,10 @@ async function vin(rpctx, blockHeight) {
           vout: vin.vout,
           address: connectedTx.vout[vin.vout].address,
           value: connectedTx.vout[vin.vout].value,
-          isZcSpend: isZcSpend
+          isZcSpend: isZcSpend,
+          tokenTicker: connectedTx.vout[vin.vout].tokenTicker,
+          tokenValue: connectedTx.vout[vin.vout].tokenValue,
+          tokenId: connectedTx.vout[vin.vout].tokenId,
         })
       } else {
         txin.push({
@@ -58,7 +63,7 @@ async function vin(rpctx, blockHeight) {
           sequence: vin.sequence,
           txId: vin.txid,
           vout: vin.vout,
-          isZcSpend: isZcSpend
+          isZcSpend: isZcSpend,
         });
       }
       txIds.add(`${ vin.txid }:${ vin.vout }`)
@@ -101,12 +106,17 @@ async function vout(rpctx, blockHeight) {
       } else {
         address = vout.scriptPubKey.addresses[0]
       }
+      console.log('vout:', vout, typeof(vout.token));
+      console.log(typeof(vout.token) === "undefined");
 
       const to = {
         blockHeight,
         address: address,
         n: vout.n,
-        value: vout.value
+        value: vout.value,
+        tokenTicker: typeof(vout.token) == "undefined" ? "" : vout.token.ticker,
+        tokenValue: typeof(vout.token) == "undefined" ? "" : vout.token.value,
+        tokenId: typeof(vout.token) == "undefined" ? "" : vout.token.groupIdentifier,
       };
 
       txout.push(to);
@@ -193,10 +203,15 @@ async function getTX(txhash) {
   return await rpc.call('decoderawtransaction', [hex]);
 }
 
+async function getTokenTx(txhash) {
+  return await rpc.call('gettokentransaction', [txhash]);
+}
+
 module.exports = {
   addPoS,
   addPoW,
   getTX,
   vin,
-  vout
+  vout,
+  getTokenTx
 };

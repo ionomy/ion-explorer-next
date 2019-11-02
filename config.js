@@ -3,8 +3,14 @@
  * Global configuration object.
  */
  const config = {
+   // 'api': {
+   //   'host': 'http://178.63.71.35',
+   //   'port': '8087',
+   //   'prefix': '/api',
+   //   'timeout': '90s'
+   // },
    'api': {
-     'host': 'http://178.63.71.35',
+     'host': 'http://127.0.0.1',
      'port': '8087',
      'prefix': '/api',
      'timeout': '90s'
