@@ -162,6 +162,7 @@ async function syncTokens() {
 
     try {
       let response = await fetch(token.URL);
+      console.log('response');
       let res = await response.json();
       const docData = ValidateDocument(res);
       if (docData){

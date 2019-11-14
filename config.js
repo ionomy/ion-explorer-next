@@ -4,7 +4,7 @@
  */
  const config = {
    'api': {
-     'host': 'http://178.63.71.35',
+     'host': 'http://144.202.28.215',
      'port': '8087',
      'prefix': '/api',
      'timeout': '90s'
