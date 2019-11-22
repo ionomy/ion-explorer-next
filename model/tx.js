@@ -33,6 +33,11 @@ const TXOut = new mongoose.Schema({
   tokenTicker: {type:String},
   tokenValue: {type:Number},
   tokenId: {type:String},
+  tokenOutputType: {type:String},
+  tokenName: {type:String},
+  tokenDecimalPos: {type:String},
+  tokenURL: {type:String},
+  tokenDocHash: {type:String}
 });
 
 /**

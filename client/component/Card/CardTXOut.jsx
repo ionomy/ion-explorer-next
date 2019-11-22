@@ -5,7 +5,7 @@ import moment from 'moment';
 import numeral from 'numeral';
 import PropTypes from 'prop-types';
 import React from 'react';
-
+import TokenModal from '../Modal';
 import Table from '../Table';
 
 export default class CardTXOut extends Component {
@@ -62,19 +62,35 @@ export default class CardTXOut extends Component {
                 value: voutValue
               })
           } else if (typeof vout.tokenTicker != "undefined" && vout.tokenTicker != ""){
-            return (
-              {
-                ...vout,
-                address: (
-                  <Link to={`/address/${ vout.address }`}>{vout.address}</Link>
-                ),
-                value: (
+            if (typeof vout.tokenOutputType != "undefined" && vout.tokenOutputType != ""){
 
-                  <span className="badge badge-success">
-              {numeral(vout.tokenValue).format('0,0.0000')} {vout.tokenTicker}
-            </span>
-                )
-              })
+              return (
+                {
+                  ...vout,
+                  address: (
+                    <TokenModal buttonLabel={vout.address} className="test" vout={vout}/>
+                  ),
+                  value: (
+                    <span className="badge badge-success">
+                {numeral(vout.tokenValue).format('0,0.0000')} {vout.tokenTicker}
+              </span>
+                  )
+                })
+            } else {
+              return (
+                {
+                  ...vout,
+                  address: (
+                    <Link to={`/address/${ vout.address }`}>{vout.address}</Link>
+                  ),
+                  value: (
+
+                    <span className="badge badge-success">
+                {numeral(vout.tokenValue).format('0,0.0000')} {vout.tokenTicker}
+              </span>
+                  )
+                })
+            }
           } else {
             return (
               {

@@ -54,7 +54,10 @@ class TokenInfo extends Component {
           <HorizontalRule
             title="Token Info" />
           <div style={{padding:'15px'}}>Token Name: {this.state.token.name}</div>
-          <div style={{padding:'15px', color: 'red', textAlign:'center'}}>Invalidate Document Content! Reading Failed!</div>
+          <div style={{padding:'15px'}}>Token Ticker: {this.state.token.ticker}</div>
+          <div style={{padding:'15px'}}>Token ID: {this.state.token.groupIdentifier}</div>
+          <div style={{padding:'15px', color: 'red', textAlign:'center'}}>&#10005; Invalidate Document Content! Reading Failed!</div>
+          <div style={{textAlign:'center'}}>Doc URL: <a href={this.state.token.URL} style={{color:'#245498'}}>{this.state.token.URL}</a></div>
           <div className="clearfix" />
         </div>
       );
@@ -64,19 +67,31 @@ class TokenInfo extends Component {
       <div>
         <HorizontalRule
           title="Token Info" />
-        <div style={{padding:'15px'}}>Token Name: {this.state.token.docName}</div>
-        <div style={{padding:'15px'}}>Token Ticker: {this.state.token.docTicker}</div>
-        <div style={{padding:'15px'}}>Token Summary: {this.state.token.docSummary}</div>
-        <div style={{padding:'15px'}}>Token Description: {this.state.token.docDescription}</div>
-        <div style={{padding:'15px'}}>Token Creator: {this.state.token.docCreator} ({this.state.token.creator})</div>
-        <div style={{padding:'15px'}}>Token Creator Verified: 
-	    {this.state.token.verifiedOwner && <div style={{display:'inline', padding:'10px', fontWeight:'bold'}}><img src="/img/ticker-verified.png"/> Verified</div>}
-	    {!this.state.token.verifiedOwner && <div style={{display:'inline', padding:'10px', fontWeight:'bold'}}><img src="/img/ticker-not-verfied.png"/> Not Verified</div>}
-	</div>
-        <div style={{padding:'15px'}}>Token Signature: {this.state.token.docSignature}</div>
-        <div style={{padding:'15px'}}>Document Hash: {this.state.token.docHash}</div>
-        <div style={{padding:'15px'}}>Token Total Amount: {this.state.token.total_amount}</div>
-        <div style={{padding:'15px'}}>Token Authorities: {this.state.token.token_authorities}</div>
+        <div style={{padding:'15px'}}><span style={{fontWeight:'bold'}}>Token Name:</span> {this.state.token.docName}</div>
+        <div style={{padding:'15px'}}><span style={{fontWeight:'bold'}}>Token Ticker:</span>  {this.state.token.docTicker}</div>
+        <div style={{padding:'15px'}}><span style={{fontWeight:'bold'}}>Token ID:</span>  {this.state.token.groupIdentifier}</div>
+        <div style={{padding:'15px'}}><span style={{fontWeight:'bold'}}>Total Token Supply:</span>  {this.state.token.total_amount} {this.state.token.docTicker}</div>
+        <div style={{padding:'15px'}}><span style={{fontWeight:'bold'}}>Token Summary:</span>  {this.state.token.docSummary}</div>
+        <div style={{padding:'15px'}}><span style={{fontWeight:'bold'}}>Token Description:</span>  {this.state.token.docDescription}</div>
+        <div style={{padding:'15px'}}><span style={{fontWeight:'bold'}}>Description Document:</span>
+          <a target="_blank" href={this.state.token.URL} style={{paddingLeft: '5px', color:'#245498'}}>{this.state.token.URL}</a> ({this.state.token.docHash})
+        </div>
+        <div style={{padding:'15px'}}><span style={{fontWeight:'bold'}}>Token Creator:</span>
+          {this.state.token.docCreator}
+          {
+            this.state.token.verifiedOwner &&
+            <div>
+              (<img src="/img/ticker-verified.png"/>
+               <a target="_blank" href={'/#/address/'+this.state.token.creator} style={{paddingLeft:'5px', color:'#245498'}}>
+               {this.state.token.creator}
+               </a>)
+            </div>
+          }
+          {!this.state.token.verifiedOwner && <div>(<img src="/img/ticker-not-verfied.png"/> Not Verified)</div>}
+        </div>
+        <div style={{padding:'15px'}}><span style={{fontWeight:'bold'}}>Token Signature:</span> {this.state.token.docSignature}</div>
+        {/*<div style={{padding:'15px'}}><span style={{fontWeight:'bold'}}>Token Total Amount:</span> {this.state.token.total_amount}</div>
+        <div style={{padding:'15px'}}><span style={{fontWeight:'bold'}}>Token Authorities:</span> {this.state.token.token_authorities}</div>*/}
         <div className="clearfix" />
       </div>
     );

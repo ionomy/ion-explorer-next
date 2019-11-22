@@ -153,6 +153,7 @@ async function syncTokens() {
       docCreator: "",
       docContact: "",
       docName: "",
+      docSummary: "",
       docDescription: "",
       docTicker: "",
       docSignature: "",
@@ -169,6 +170,7 @@ async function syncTokens() {
         token.docCreator = docData[0].creator;
         token.docContact = docData[0].contact.email;
         token.docName = docData[0].name;
+        token.docSummary = docData[0].summary;
         token.docDescription = docData[0].description;
         token.docTicker = docData[0].ticker;
         token.docSignature = docData[1];

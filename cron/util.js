@@ -97,8 +97,18 @@ async function vout(rpctx, blockHeight) {
     const utxo = [];
     rpctx.vout.forEach((vout) => {
       var address;
+      var tokenName = "";
+      var tokenURL ="";
+      var tokenDecimalPos = "";
+      var tokenOutputType = "";
+      var tokenDocHash = "";
       if (vout.scriptPubKey.type == 'nulldata') {
-        address = "OP_RETURN "+hexToString(vout.scriptPubKey.asm.substring(10))
+        address = vout.scriptPubKey.asm;//"OP_RETURN "+hexToString(vout.scriptPubKey.asm.substring(10))
+        tokenName = vout.token.name;
+        tokenURL = vout.token.URL;
+        tokenDecimalPos = vout.token.decimalPos;
+        tokenOutputType = vout.token.outputType;
+        tokenDocHash = vout.token.documentHash;
       }else if (vout.scriptPubKey.type == 'zerocoinmint') {
         address = 'ZERO_COIN_MINT'
       } else if (vout.scriptPubKey.type == 'nonstandard') {
@@ -117,6 +127,11 @@ async function vout(rpctx, blockHeight) {
         tokenTicker: typeof(vout.token) == "undefined" ? "" : vout.token.ticker,
         tokenValue: typeof(vout.token) == "undefined" ? "" : vout.token.value,
         tokenId: typeof(vout.token) == "undefined" ? "" : vout.token.groupIdentifier,
+        tokenName: tokenName,
+        tokenURL:  tokenURL,
+        tokenDecimalPos: tokenDecimalPos,
+        tokenOutputType: tokenOutputType,
+        tokenDocHash: tokenDocHash
       };
 
       txout.push(to);
