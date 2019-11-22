@@ -43,12 +43,12 @@ export default class TokenModal extends Component {
             </div>
           </ModalHeader>
           <ModalBody>
-            <div className="row" style={{padding:'10px', fontSize:'12px'}}><span style={{fontWeight:'bold', fontSize:'12px'}}>Output Type:</span> {vout.tokenOutputType}</div>
-            <div className="row" style={{padding:'10px', fontSize:'12px'}}><span style={{fontWeight:'bold', fontSize:'12px'}}>Ticker:</span> {vout.tokenTicker}</div>
-            <div className="row" style={{padding:'10px', fontSize:'12px'}}><span style={{fontWeight:'bold', fontSize:'12px'}}>Name:</span> {vout.tokenName}</div>
-            <div className="row" style={{padding:'10px', fontSize:'12px'}}><span style={{fontWeight:'bold', fontSize:'12px'}}>Decimal:</span> {vout.tokenDecimalPos}</div>
-            <div className="row" style={{padding:'10px', fontSize:'12px'}}><span style={{fontWeight:'bold', fontSize:'12px'}}>URL:</span> {vout.tokenURL}</div>
-            <div className="row" style={{padding:'10px', fontSize:'12px'}}><span style={{fontWeight:'bold', fontSize:'12px'}}>DocumentHash:</span> {vout.tokenDocHash}</div>
+            <div className="row" style={{padding:'10px', fontSize:'12px'}}><span style={{fontWeight:'bold', fontSize:'12px', paddingRight:'5px'}}>Output Type:</span> {vout.tokenOutputType}</div>
+            <div className="row" style={{padding:'10px', fontSize:'12px'}}><span style={{fontWeight:'bold', fontSize:'12px', paddingRight:'5px'}}>Ticker:</span> {vout.tokenTicker}</div>
+            <div className="row" style={{padding:'10px', fontSize:'12px'}}><span style={{fontWeight:'bold', fontSize:'12px', paddingRight:'5px'}}>Name:</span> {vout.tokenName}</div>
+            <div className="row" style={{padding:'10px', fontSize:'12px'}}><span style={{fontWeight:'bold', fontSize:'12px', paddingRight:'5px'}}>Decimal:</span> {vout.tokenDecimalPos}</div>
+            <div className="row" style={{padding:'10px', fontSize:'12px'}}><span style={{fontWeight:'bold', fontSize:'12px', paddingRight:'5px'}}>URL:</span> {vout.tokenURL}</div>
+            <div className="row" style={{padding:'10px', fontSize:'12px'}}><span style={{fontWeight:'bold', fontSize:'12px', paddingRight:'5px'}}>DocumentHash:</span> {vout.tokenDocHash}</div>
           </ModalBody>
           <ModalFooter>
             <Button color="secondary" onClick={this.toggle}>Close</Button>
