@@ -39,7 +39,7 @@ export default class TokenModal extends Component {
     if (className == "description"){      
       return (
         <React.Fragment>
-          <span className="link-btn" onClick={this.toggle}>{buttonLabel}</span>
+          <span className="link-btn" style={{cursor:'pointer'}} onClick={this.toggle}>{buttonLabel}</span>
           <Modal isOpen={modal} toggle={this.toggle} className={className}>
             <ModalHeader toggle={this.toggle}>
               <div>
@@ -63,7 +63,7 @@ export default class TokenModal extends Component {
     } else {
       return (
         <React.Fragment>
-          <span className="link-btn" onClick={this.toggle}>{buttonLabel}</span>
+          <span className="link-btn" style={{cursor:'pointer'}} onClick={this.toggle}>{buttonLabel}</span>
           <Modal isOpen={modal} toggle={this.toggle} className={className}>
             <ModalHeader toggle={this.toggle}>
               <div>
