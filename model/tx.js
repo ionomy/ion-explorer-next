@@ -37,7 +37,8 @@ const TXOut = new mongoose.Schema({
   tokenName: {type:String},
   tokenDecimalPos: {type:String},
   tokenURL: {type:String},
-  tokenDocHash: {type:String}
+  tokenDocHash: {type:String},
+  tokenAuthorities: {type:String}
 });
 
 /**

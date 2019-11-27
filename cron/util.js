@@ -95,6 +95,7 @@ async function vout(rpctx, blockHeight) {
   const txout = [];
   if (rpctx.vout) {
     const utxo = [];
+
     rpctx.vout.forEach((vout) => {
       var address;
       var tokenName = "";
@@ -102,13 +103,9 @@ async function vout(rpctx, blockHeight) {
       var tokenDecimalPos = "";
       var tokenOutputType = "";
       var tokenDocHash = "";
+      var tokenAuthorities = "";
       if (vout.scriptPubKey.type == 'nulldata') {
         address = vout.scriptPubKey.asm;//"OP_RETURN "+hexToString(vout.scriptPubKey.asm.substring(10))
-        tokenName = vout.token.name;
-        tokenURL = vout.token.URL;
-        tokenDecimalPos = vout.token.decimalPos;
-        tokenOutputType = vout.token.outputType;
-        tokenDocHash = vout.token.documentHash;
       }else if (vout.scriptPubKey.type == 'zerocoinmint') {
         address = 'ZERO_COIN_MINT'
       } else if (vout.scriptPubKey.type == 'nonstandard') {
@@ -116,9 +113,17 @@ async function vout(rpctx, blockHeight) {
       } else {
         address = vout.scriptPubKey.addresses[0]
       }
-      console.log('vout:', vout, typeof(vout.token));
-      console.log(typeof(vout.token) === "undefined");
 
+      if (typeof(vout.token) != "undefined"){
+        console.log('vout token', vout.token)
+        tokenName = vout.token.name;
+        tokenURL = vout.token.URL;
+        tokenDecimalPos = vout.token.decimalPos;
+        tokenOutputType = vout.token.outputType;
+        tokenDocHash = vout.token.documentHash;
+        tokenAuthorities = vout.token.authorities;
+      }
+      console.log('vout', vout);
       const to = {
         blockHeight,
         address: address,
@@ -131,7 +136,8 @@ async function vout(rpctx, blockHeight) {
         tokenURL:  tokenURL,
         tokenDecimalPos: tokenDecimalPos,
         tokenOutputType: tokenOutputType,
-        tokenDocHash: tokenDocHash
+        tokenDocHash: tokenDocHash,
+        tokenAuthorities: tokenAuthorities
       };
 
       txout.push(to);

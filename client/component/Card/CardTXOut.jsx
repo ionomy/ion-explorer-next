@@ -62,17 +62,29 @@ export default class CardTXOut extends Component {
                 value: voutValue
               })
           } else if (typeof vout.tokenTicker != "undefined" && vout.tokenTicker != ""){
-            if (typeof vout.tokenOutputType != "undefined" && vout.tokenOutputType != ""){
-
+            if (typeof vout.tokenOutputType != "undefined" && vout.tokenOutputType == "description"){
               return (
                 {
                   ...vout,
                   address: (
-                    <TokenModal buttonLabel={vout.address} className="test" vout={vout}/>
+                    <TokenModal buttonLabel={vout.address} className="description" vout={vout}/>
                   ),
                   value: (
                     <span className="badge badge-success">
                 {numeral(vout.tokenValue).format('0,0.0000')} {vout.tokenTicker}
+              </span>
+                  )
+                })
+            } else if (typeof vout.tokenOutputType != "undefined" && vout.tokenOutputType == "authority"){
+              return (
+                {
+                  ...vout,
+                  address: (
+                    <TokenModal buttonLabel={vout.address} className="authority" vout={vout}/>
+                  ),
+                  value: (
+                    <span className="badge badge-success">
+                {vout.tokenTicker} authorities
               </span>
                   )
                 })

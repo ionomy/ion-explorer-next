@@ -76,18 +76,14 @@ class TokenInfo extends Component {
         <div style={{padding:'15px'}}><span style={{fontWeight:'bold'}}>Description Document:</span>
           <a target="_blank" href={this.state.token.URL} style={{paddingLeft: '5px', color:'#245498'}}>{this.state.token.URL}</a> ({this.state.token.docHash})
         </div>
-        <div style={{padding:'15px'}}><span style={{fontWeight:'bold'}}>Token Creator:</span>
-          {this.state.token.docCreator}
-          {
-            this.state.token.verifiedOwner &&
-            <div>
-              (<img src="/img/ticker-verified.png"/>
-               <a target="_blank" href={'/#/address/'+this.state.token.creator} style={{paddingLeft:'5px', color:'#245498'}}>
+        <div style={{padding:'15px'}}>
+          {!this.state.token.verifiedOwner && <span><span style={{fontWeight:'bold', paddingRight:'10px'}}>{this.state.token.docCreator}</span><img src="/img/ticker-not-verfied.png" style={{marginLeft:'5px'}}/> (Not Verified)</span>}
+          {this.state.token.verifiedOwner &&  <span>
+            <span style={{fontWeight:'bold', paddingRight:'10px'}}>Token Creator:</span>{this.state.token.docCreator}<img src="/img/ticker-verified.png" style={{marginLeft:'5px'}}/>                        
+            <p>(<a target="_blank" href={'/#/address/'+this.state.token.creator} style={{paddingLeft:'5px', color:'#245498'}}>
                {this.state.token.creator}
-               </a>)
-            </div>
-          }
-          {!this.state.token.verifiedOwner && <div>(<img src="/img/ticker-not-verfied.png"/> Not Verified)</div>}
+               </a>)</p>
+          </span>}
         </div>
         <div style={{padding:'15px'}}><span style={{fontWeight:'bold'}}>Token Signature:</span> {this.state.token.docSignature}</div>
         {/*<div style={{padding:'15px'}}><span style={{fontWeight:'bold'}}>Token Total Amount:</span> {this.state.token.total_amount}</div>
